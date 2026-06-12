@@ -2,7 +2,15 @@ import os
 import re
 from groq import Groq
 import streamlit as st
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+
+
+def get_groq_client():
+    api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+    if not api_key:
+        raise RuntimeError(
+            "GROQ_API_KEY is not configured. Add it to the Streamlit app secrets."
+        )
+    return Groq(api_key=api_key)
 # ============================================================================
 # SYSTEM PROMPTS (Multi-turn conversation context)
 # ============================================================================
@@ -174,7 +182,7 @@ def evaluate_answer(answer: str) -> str:
     user_message = USER_PROMPT_TEMPLATE.format(answer=answer)
 
     # Call Groq API with proper prompt structure
-    response = client.chat.completions.create(
+    response = get_groq_client().chat.completions.create(
         model="llama-3.1-8b-instant",
         messages=[
             {

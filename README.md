@@ -5,9 +5,12 @@ An AI-powered mock interview system using RAG + LLaMA 3.1.
 ## Setup
 1. Clone the repo
 2. Install dependencies: `pip install -r requirements.txt`
-3. Create a `.env` file with your Groq API key:
-   GROQ_API_KEY=your_key_here
+3. Create `.streamlit/secrets.toml` with your Groq API key:
+   `GROQ_API_KEY = "your_key_here"`
 4. Run: `streamlit run app.py`
+
+For Streamlit Community Cloud, add the same `GROQ_API_KEY` entry under
+**Manage app > Settings > Secrets**.
 
 # Brief Description of the project
 # Objective: 
